@@ -1,0 +1,118 @@
+# i3status-rust config.toml
+# Place at: ~/.config/i3status-rust/config.toml
+# Docs: https://github.com/greshake/i3status-rust/blob/master/doc/blocks.md
+#
+# Requires a Nerd Font or Font Awesome 6 for icons.
+# Set in your i3 bar config, e.g.:
+#   font pango:JetBrainsMono Nerd Font 10
+
+[theme]
+theme = "plain"
+
+[theme.overrides]
+idle_bg      = "#17141c"
+idle_fg      = "#c9b5af"
+info_bg      = "#17141c"
+info_fg      = "#bfa5ea"   # blue (bright)
+good_bg      = "#17141c"
+good_fg      = "#8372a0"   # green (bright)
+warning_bg   = "#17141c"
+warning_fg   = "#a992ce"   # yellow (bright)
+critical_bg  = "#8c79a5"   # accent bg for critical alerts
+critical_fg  = "#17141c"
+separator_bg = "#17141c"
+separator_fg = "#433a4f"
+# Other built-in themes: plain, solarized-dark, modern, bad-wolf, native, dracula, nord
+
+[icons]
+icons = "awesome6"
+# Fallback if you don't have a Nerd Font: icons = "none"
+
+# ── Focused window title ──────────────────────────────────────────────────────
+[[block]]
+block = "focused_window"
+
+# ── CPU utilization ───────────────────────────────────────────────────────────
+[[block]]
+block = "cpu"
+interval = 1
+format = "  $utilization "
+format_alt = "  $frequency "   # Left-click to toggle
+
+# ── CPU temperature ───────────────────────────────────────────────────────────
+[[block]]
+block = "temperature"
+interval = 5
+format = " $icon $max "
+# Run `sensors` to find your chip name and adjust below if needed:
+# chip = "*-isa-*"
+warning = 75.0
+
+# ── Memory ────────────────────────────────────────────────────────────────────
+[[block]]
+block = "memory"
+format = " $icon $mem_used_percents "
+format_alt = " $icon_swap $swap_used_percents "   # Left-click to toggle
+
+# ── Disk space ────────────────────────────────────────────────────────────────
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+alert = 10.0
+warning = 20.0
+format = " $icon $available "
+
+# ── Network ───────────────────────────────────────────────────────────────────
+[[block]]
+block = "net"
+format = " $icon {$speed_down $speed_up|Disconnected} "
+interval = 2
+
+[[block]]
+block = "vpn"
+driver = "mullvad"
+interval = 5
+format_connected = " vpn: 󰌘 "
+format_disconnected = " vpn: 󰌙 "
+state_connected = "good"
+state_disconnected = "warning"
+
+# ── Bluetooth ─────────────────────────────────────────────────────────────────
+# Uncomment and set your device MAC once you have a paired device:
+# [[block]]
+# block = "bluetooth"
+# mac = "XX:XX:XX:XX:XX:XX"
+# format = " $icon {$name|} "
+
+# ── Spotify ───────────────────────────────────────────────────────────────────
+[[block]]
+block = "music"
+interface_name_exclude = [".*kdeconnect.*", "mpd"]
+format = " $icon {$combo.str(max_w:60) $play |}"
+format_alt = " $icon {$title.str(max_w:25)|no track} "   # Left-click to toggle
+# Scroll on block to seek, right-click to go to next track
+
+# ── Volume ────────────────────────────────────────────────────────────────────
+[[block]]
+block = "sound"
+format = " $icon $volume "
+# Left-click: mute/unmute | Scroll: change volume
+
+# ── Battery ───────────────────────────────────────────────────────────────────
+[[block]]
+block = "battery"
+interval = 10
+format = " $icon $percentage {$time |}"
+empty_format = " $icon Empty "
+missing_format = ""   # Hides the block entirely if no battery is present
+full_threshold = 99
+
+# ── Date and time ─────────────────────────────────────────────────────────────
+[[block]]
+block = "time"
+interval = 1
+[block.format]
+full = " $timestamp.datetime(f:'%m/%d %I:%M %P') "
+short = " $timestamp.datetime(f:'%Y-%m-%d') "

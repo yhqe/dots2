@@ -1,0 +1,115 @@
+* {
+    bg0:    #17141c;   /* base background             */
+    bg1:    #2b2632;   /* current line / alt row      */
+    bg2:    #433a4f;   /* selection / highlight bg    */
+    fg0:    #c9b5af;   /* primary text                */
+    fg1:    #625577;   /* comment / subtle            */
+    red:    #4b415b;
+    orange: #8c79a5;   /* the accent                  */
+    yellow: #a992ce;
+    green:  #8372a0;
+    teal:   #ab97cb;
+    blue:   #af97d6;
+    purple: #cbb9e7;
+
+    font:               "DejaVuSansM Nerd Font Mono 7";
+    background-color:   transparent;
+    text-color:         @fg0;
+}
+
+window {
+    background-color:   @bg0;
+    border:             1px solid;
+    border-color:       @orange;
+    border-radius:      0px;
+    padding:            0px;
+    width:              30%;
+}
+
+mainbox {
+    background-color:   transparent;
+    padding:            0px;
+    spacing:            0px;
+    children:           [ inputbar, listview, message ];
+}
+
+inputbar {
+    background-color:   @bg1;
+    border:             0px 0px 1px 0px;
+    border-color:       @bg2;
+    padding:            6px 8px;
+    spacing:            4px;
+    children:           [ prompt, entry ];
+}
+
+prompt {
+    background-color:   transparent;
+    text-color:         @orange;
+}
+
+entry {
+    background-color:   transparent;
+    text-color:         @fg0;
+    cursor-color:       @orange;
+    placeholder:        "  search";
+    placeholder-color:  @fg1;
+}
+
+listview {
+    background-color:   transparent;
+    padding:            4px;
+    spacing:            1px;
+    scrollbar:          false;
+    lines:              10;
+    columns:            1;
+    cycle:              true;
+    dynamic:            true;
+}
+
+element {
+    background-color:   transparent;
+    border-radius:      0px;
+    padding:            3px 6px;
+    spacing:            6px;
+    orientation:        horizontal;
+}
+
+element-icon {
+    background-color:   transparent;
+    size:               1em;
+    vertical-align:     0.5;
+}
+
+element-text {
+    background-color:   transparent;
+    text-color:         inherit;
+    highlight:          bold #826c9e;
+    vertical-align:     0.5;
+}
+
+/* normal rows */
+element normal.normal  { background-color: transparent; text-color: @fg0;    }
+element normal.urgent  { background-color: transparent; text-color: @red;    }
+element normal.active  { background-color: transparent; text-color: @green;  }
+
+/* selected row */
+element selected.normal { background-color: @bg2; text-color: @orange;  }
+element selected.urgent { background-color: @bg2; text-color: @red;     }
+element selected.active { background-color: @bg2; text-color: @teal;    }
+
+/* alternate rows */
+element alternate.normal { background-color: @bg1; text-color: @fg0;   }
+element alternate.urgent { background-color: @bg1; text-color: @red;   }
+element alternate.active { background-color: @bg1; text-color: @green; }
+
+message {
+    background-color:   @bg1;
+    border:             1px 0px 0px 0px;
+    border-color:       @bg2;
+    padding:            4px 8px;
+}
+
+textbox {
+    background-color:   transparent;
+    text-color:         @yellow;
+}
